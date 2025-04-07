@@ -6,18 +6,10 @@ local function map(mode, lhs, rhs, opts)
   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
--- Change leader to a comma
+-- Change leader to a space
 vim.g.mapleader = ' '
-
 
 -----------------------------------------------------------
 -- Neovim shortcuts
 -----------------------------------------------------------
-
--- Disable arrow keys
-
--- map('', '<down>', '<nop>')
--- map('', '<left>', '<nop>')
--- map('', '<right>', '<nop>')
-
 
