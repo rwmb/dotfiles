@@ -49,4 +49,4 @@ opt.splitbelow = true
 opt.iskeyword:append("-")
 
 -- scroll
-opt.scrolloff = 10
+opt.scrolloff = 15
