@@ -1,5 +1,12 @@
 local opt = vim.opt -- for conciseness
 
+-- mode
+opt.showmode = false
+
+-- utils
+opt.undofile = true
+opt.updatetime = 500
+
 -- line numbers
 opt.relativenumber = true
 opt.number = true
@@ -9,6 +16,10 @@ opt.tabstop = 2
 opt.shiftwidth = 2
 opt.expandtab = true
 opt.autoindent = false
+
+-- whitespace characters
+opt.list = true
+opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
 -- line wrapping
 opt.wrap = false
@@ -37,3 +48,5 @@ opt.splitbelow = true
 
 opt.iskeyword:append("-")
 
+-- scroll
+opt.scrolloff = 10

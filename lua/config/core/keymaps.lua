@@ -8,8 +8,10 @@ end
 
 -- Change leader to a space
 vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 
 -----------------------------------------------------------
 -- Neovim shortcuts
 -----------------------------------------------------------
 
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
