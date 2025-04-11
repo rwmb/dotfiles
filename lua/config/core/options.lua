@@ -19,7 +19,7 @@ opt.autoindent = false
 
 -- whitespace characters
 opt.list = true
-opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+opt.listchars = { tab = '» ', trail = '∙', nbsp = '␣', space = '·' }
 
 -- line wrapping
 opt.wrap = false
@@ -50,3 +50,12 @@ opt.iskeyword:append("-")
 
 -- scroll
 opt.scrolloff = 15
+
+-- Highlight when copying
+vim.api.nvim_create_autocmd('TextYankPost', {
+  desc = 'Highlight when yanking (copying) text',
+  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+})
