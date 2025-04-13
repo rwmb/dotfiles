@@ -11,9 +11,6 @@ return {
       require('mini.ai').setup()
       require('mini.comment').setup()
       require('mini.splitjoin').setup()
-      require('mini.statusline').setup({
-        use_icons = true
-      })
       require('mini.diff').setup({
         view = {
           style = 'sign',
