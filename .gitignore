@@ -1,2 +1,12 @@
-tmux/plugins
+# Ignore everything
+*
 
+# Except these files and folders
+!.config
+.gitconfig
+.oh-my-zsh
+.p10k.zsh
+.zshrc
+
+# But also ignore this...
+tmux/plugins
