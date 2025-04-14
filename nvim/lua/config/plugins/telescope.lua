@@ -8,7 +8,7 @@ return {
         require('telescope').setup {
           pickers = {
             find_files = {
-              theme = "ivy",
+              -- theme = "ivy",
               file_ignore_patterns = {
                 "node_modules"
               }
@@ -16,5 +16,11 @@ return {
           }
         }
         vim.keymap.set("n", "<space>fd", require('telescope.builtin').find_files)
+        vim.keymap.set("n", "<space>fg", require('telescope.builtin').live_grep)
+        vim.keymap.set("n", "<space>fc", function()
+          require('telescope.builtin').find_files {
+            cwd = "/root/.config"
+          }
+        end)
       end
-    }
+}
