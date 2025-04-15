@@ -1,11 +1,9 @@
 return {
     'nvim-lualine/lualine.nvim',
     config = function()
-      require('lualine').setup {
+      local opts = {
         options = {
           theme = 'catppuccin',
-          section_separators = '',
-          component_separators = '',
           icons_enabled = true,
         },
         dependencies = { 'nvim-tree/nvim-web-devicons' },
@@ -13,11 +11,12 @@ return {
           lualine_a = { 'mode' },
           lualine_b = { 'branch', 'diff', 'diagnostics' },
           lualine_c = { 'filename' },
-          lualine_x = { 'filetype' },
+          lualine_x = { 'lsp_status', 'encoding', 'filetype'},
           lualine_y = { 'progress' },
           lualine_z = { 'location' },
         }
       }
+      require("lualine").setup(opts)
     end
 }
 
