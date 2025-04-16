@@ -1,11 +1,2 @@
-# Ignore everything
-*
-
-# Except these files and folders
-!.config/**/*
-!.gitconfig
-!.p10k.zsh
-!.zshrc
-
 # But also ignore this...
 .config/tmux/plugins
