@@ -1,3 +1,19 @@
+# Perform ls right after cd'ing
+function chpwd() {
+  eza -1alh -m --icons --git --no-permissions --no-user
+}
+
+test -z "$TMUX" && (tmux attach || tmux new-session)
+
+clear_input_line() {
+  clear -x
+  zle kill-whole-line
+  zle reset-prompt
+}
+
+zle -N clear_input_line
+
+bindkey '^G' clear_input_line
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -40,20 +56,4 @@ alias v='nvim'
 #   clear -x
 # }
 
-# Perform ls right after cd'ing
-function chpwd() {
-  eza -1alh -m --icons --git --no-permissions --no-user
-}
-
-test -z "$TMUX" && (tmux attach || tmux new-session)
-
-clear_input_line() {
-  clear -x
-  zle kill-whole-line
-  zle reset-prompt
-}
-
-zle -N clear_input_line
-
-bindkey '^U' clear_input_line
 
