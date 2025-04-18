@@ -1,2 +1,5 @@
-# But also ignore this...
+# Ignore tmux plugins (this is the path with the cloned repos)
 config/tmux/plugins
+
+# Remove env specific configurations
+.env.*
