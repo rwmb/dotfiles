@@ -24,6 +24,6 @@ return {
         }
       }
     })
-    vim.keymap.set('n', '<space>o', '<Cmd>Neotree toggle<CR>')
+    vim.keymap.set('n', '<space>p', '<Cmd>Neotree toggle<CR>')
   end
 }
