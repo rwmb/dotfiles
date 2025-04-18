@@ -9,6 +9,7 @@ return {
           pickers = {
             find_files = {
               -- theme = "ivy",
+              follow = true,
               file_ignore_patterns = {
                 "node_modules"
               }
