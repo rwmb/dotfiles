@@ -15,7 +15,7 @@ opt.number = true
 opt.tabstop = 2
 opt.shiftwidth = 2
 opt.expandtab = true
-opt.autoindent = false
+-- opt.autoindent = false
 
 -- whitespace characters
 opt.list = true
@@ -29,11 +29,11 @@ opt.ignorecase = true
 opt.smartcase = true
 
 -- cursor line
-opt.cursorline = true
+-- opt.cursorline = true
 
 -- appearance
 opt.termguicolors = true
-opt.background = "dark"
+-- opt.background = "dark"
 opt.signcolumn = "yes"
 
 -- backspace
@@ -46,7 +46,7 @@ opt.splitbelow = true
 opt.iskeyword:append("-")
 
 -- scroll
-opt.scrolloff = 15
+opt.scrolloff = 10
 
 -- Highlight when copying
 vim.api.nvim_create_autocmd('TextYankPost', {
