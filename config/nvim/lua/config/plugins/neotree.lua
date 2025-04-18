@@ -13,9 +13,9 @@ return {
   config = function()
     require('neo-tree').setup({
       -- fill any relevant options here
-      window = {
-        position = "current",
-      },
+      -- window = {
+      --   position = "current",
+      -- },
       filesystem = {
         filtered_items = {
           hide_dotfiles = false,
@@ -24,6 +24,6 @@ return {
         }
       }
     })
-    vim.keymap.set('n', '<space>p', '<Cmd>Neotree toggle<CR>')
+    vim.keymap.set('n', '<Leader>p', '<Cmd>Neotree toggle<CR>')
   end
 }

@@ -20,7 +20,8 @@ return {
         show_hidden = true,
       }
     })
-    vim.keymap.set("n", ";o", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+
+    vim.keymap.set("n", "<Leader>o", "<CMD>Oil<CR>", { desc = "Open parent directory" })
   end
 }
 

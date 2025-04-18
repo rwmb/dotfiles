@@ -16,9 +16,9 @@ return {
             }
           }
         }
-        vim.keymap.set("n", "<space>fd", require('telescope.builtin').find_files)
-        vim.keymap.set("n", "<space>fg", require('telescope.builtin').live_grep)
-        vim.keymap.set("n", "<space>fc", function()
+        vim.keymap.set("n", "<Leader>fd", require('telescope.builtin').find_files)
+        vim.keymap.set("n", "<Leader>fg", require('telescope.builtin').live_grep)
+        vim.keymap.set("n", "<Leader>fc", function()
           require('telescope.builtin').find_files {
             cwd = "/root/.config"
           }

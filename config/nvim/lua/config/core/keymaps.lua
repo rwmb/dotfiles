@@ -6,7 +6,7 @@ local function map(mode, lhs, rhs, opts)
   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
--- Change leader to a space
+-- set leader for whole application
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
