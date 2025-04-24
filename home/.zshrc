@@ -37,7 +37,7 @@ function chpwd() {
   eza -1alh -m --icons --git --no-permissions --no-user
 }
 
-test -z "$TMUX" && (tmux attach || tmux new-session)
+# test -z "$TMUX" && (tmux attach || tmux new-session)
 
 clear_input_line() {
   clear -x

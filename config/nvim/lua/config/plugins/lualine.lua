@@ -3,7 +3,7 @@ return {
     config = function()
       local opts = {
         options = {
-          theme = 'catppuccin',
+          theme = 'nordic',
           icons_enabled = true,
         },
         dependencies = { 'nvim-tree/nvim-web-devicons' },
@@ -14,7 +14,10 @@ return {
           lualine_x = { 'lsp_status', 'encoding', 'filetype'},
           lualine_y = { 'progress' },
           lualine_z = { 'location' },
-        }
+        },
+        on_colors = function(colors)
+          colors.bg_statusline = "NONE"
+        end,
       }
       require("lualine").setup(opts)
     end
