@@ -1,0 +1,71 @@
+@import '/home/rick/.config/custom-themes/nordic.css';
+
+* {
+    font-family: 'CaskaydiaCove Nerd Font mono';
+    font-size: 14px;
+ }
+
+ /* Window */
+ window {
+    margin: 0px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: @bg;
+    border: 2px solid @blue;
+ }
+
+ /* Inner Box */
+ #inner-box {
+    margin: 5px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: @bg;
+ }
+
+ /* Outer Box */
+ #outer-box {
+    margin: 5px;
+    padding: 10px;
+    border: none;
+    background-color: @bg;
+    border-radius: 5px;
+ }
+
+ /* Scroll */
+ #scroll {
+    margin: 0px;
+    padding: 10px;
+    border: none;
+ }
+
+ /* Input */
+ #input {
+    margin: 5px;
+    padding: 10px;
+    border: none;
+    color: @blue;
+    background-color: @bg;
+    border: 2px solid @blue;
+ }
+
+ /* Text */
+ #text {
+    margin: 5px;
+    padding: 10px;
+    border: none;
+    color: @fg;
+ }
+
+ /* Selected Entry */
+ #entry:selected {
+   background-color: @bg;
+   outline: 1px solid @blue;
+ }
+
+ #entry:selected #text {
+    color: @blue;
+ }
+ image {
+   margin-left: 10px;
+ }
