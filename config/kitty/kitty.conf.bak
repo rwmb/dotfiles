@@ -919,7 +919,7 @@ background #1e1e2e
 
 #: The foreground and background colors.
 
-background_opacity 0.85
+background_opacity 0.95
 
 #: The opacity of the background. A number between zero and one, where
 #: one is opaque and zero is fully transparent. This will only work if
@@ -2369,7 +2369,7 @@ map kitty_mod+minus       change_font_size all -1.0
 
 
 # BEGIN_KITTY_FONTS
-font_family      family="Hurmit Nerd Font"
+font_family      family="JetBrainsMonoNL Nerd Font"
 bold_font        auto
 italic_font      auto
 bold_italic_font auto
