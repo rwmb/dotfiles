@@ -33,6 +33,7 @@ antigen apply
 # ALIASES
 alias ls='eza -1alh -m --icons --git --no-permissions --no-user'
 alias v='nvim'
+alias rg="rg --hidden --glob '!.git'"
 
 # Perform ls right after cd'ing
 function chpwd() {
@@ -49,3 +50,9 @@ zle -N clear_input_line
 
 bindkey '^G' clear_input_line
 
+# bun completions
+[ -s "/home/rick/.bun/_bun" ] && source "/home/rick/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

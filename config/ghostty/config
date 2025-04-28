@@ -1,5 +1,6 @@
 #"Hurmit Nerd Font" This is the configuration file for Ghostty.
 auto-update = check
+clipboard-paste-protection = false
 shell-integration = zsh
 
 window-padding-x = 2
