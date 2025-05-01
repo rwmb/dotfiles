@@ -56,3 +56,5 @@ bindkey '^G' clear_input_line
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+[[ ! -f ~/.env.zsh ]] || source ~/.env.zsh
