@@ -50,11 +50,4 @@ zle -N clear_input_line
 
 bindkey '^G' clear_input_line
 
-# bun completions
-[ -s "/home/rick/.bun/_bun" ] && source "/home/rick/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
 [[ ! -f ~/.env.zsh ]] || source ~/.env.zsh
