@@ -1,4 +1,7 @@
 #"Hurmit Nerd Font" This is the configuration file for Ghostty.
+
+# custom-shader=./shaders/bettercrt.glsl
+
 auto-update = check
 clipboard-paste-protection = false
 shell-integration = zsh
@@ -12,7 +15,7 @@ cursor-style-blink = false
 mouse-hide-while-typing = true
 
 background = #242933
-background-opacity = 0.95
+# background-opacity = 0.95
 
 foreground = #D8DEE9
 
