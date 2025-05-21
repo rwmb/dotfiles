@@ -33,6 +33,7 @@ antigen apply
 # ALIASES
 alias ls='eza -1alh -m --icons --git --no-permissions --no-user'
 alias v='nvim'
+alias vim='nvim'
 alias rg="rg --hidden --glob '!.git'"
 
 # Perform ls right after cd'ing
