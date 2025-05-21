@@ -5,19 +5,29 @@ return {
         'nvim-lua/plenary.nvim',
       },
       config = function()
-        require('telescope').setup {
-          pickers = {
+        local opts = {}
+        opts.defaults = {
+          mappings = {
+            i = {
+              ["<C-u>"] = false
+            }
+          }
+        }
+
+        opts.pickers = {
             find_files = {
-              theme = "ivy",
               follow = true,
               file_ignore_patterns = {
-                "/node_modules/*",
+                "node_modules/",
               }
             },
           }
-        }
-        vim.keymap.set("n", "<Leader>fd", require('telescope.builtin').find_files)
+
+        require('telescope').setup(opts)
+
+        vim.keymap.set("n", "<Leader>ff", require('telescope.builtin').find_files)
         vim.keymap.set("n", "<Leader>fg", require('telescope.builtin').live_grep)
+        vim.keymap.set("n", "<Leader>fa", require('telescope.builtin').find_files)
         vim.keymap.set("n", "<Leader>fc", function()
           require('telescope.builtin').find_files {
             cwd = "~/.config"

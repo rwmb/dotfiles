@@ -1,6 +1,7 @@
-require("config.core.options")
-require("config.core.keymaps")
+require("config.keymaps")
+require("config.options")
 
 require("config.lazy")
 
-require("config.core.colorscheme")
+require("config.colorscheme")
+
