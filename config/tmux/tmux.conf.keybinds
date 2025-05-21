@@ -6,9 +6,6 @@ unbind -a -T copy-mode-vi
 set -g prefix C-a
 # bind-key C-a send-prefix
 
-bind C-l split-window -h -c "#{pane_current_path}"
-bind Down split-window -v -c "#{pane_current_path}"
-
 set -g mode-keys vi
 
 bind v copy-mode
@@ -188,6 +185,7 @@ bind-key -r -T prefix       M-Down                 resize-pane -D 5
 bind-key -r -T prefix       M-Left                 resize-pane -L 5
 bind-key -r -T prefix       M-Right                resize-pane -R 5
 bind-key    -T prefix       C-a                    send-prefix
+bind-key    -T prefix       Right                  split-window -h -c "#{pane_current_path}"
 bind-key    -T prefix       C-j                    split-window -v -c "#{pane_current_path}"
 # bind-key    -T prefix       C-l                    send-keys C-l
 bind-key    -T prefix       C-n                    next-window
