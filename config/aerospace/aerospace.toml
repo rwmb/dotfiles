@@ -131,10 +131,8 @@ automatically-unhide-macos-hidden-apps = false
     alt-b = 'workspace B'
     alt-c = 'workspace C'
     alt-d = 'workspace D'
-    alt-e = 'workspace E'
     alt-g = 'workspace G'
     alt-i = 'workspace I'
-    alt-m = 'workspace M'
     alt-n = 'workspace N'
     alt-o = 'workspace O'
     alt-p = 'workspace P'
@@ -143,7 +141,6 @@ automatically-unhide-macos-hidden-apps = false
     alt-s = 'workspace S'
     alt-t = 'workspace T'
     alt-u = 'workspace U'
-    alt-v = 'layout floating tiling' # Toggle between floating and tiling layout
     alt-w = 'workspace W'
     alt-x = 'workspace X'
     alt-y = 'workspace Y'
@@ -163,10 +160,8 @@ automatically-unhide-macos-hidden-apps = false
     alt-shift-b = 'move-node-to-workspace B'
     alt-shift-c = 'move-node-to-workspace C'
     alt-shift-d = 'move-node-to-workspace D'
-    alt-shift-e = 'move-node-to-workspace E'
     alt-shift-g = 'move-node-to-workspace G'
     alt-shift-i = 'move-node-to-workspace I'
-    alt-shift-m = 'move-node-to-workspace M'
     alt-shift-n = 'move-node-to-workspace N'
     alt-shift-o = 'move-node-to-workspace O'
     alt-shift-p = 'move-node-to-workspace P'
@@ -180,11 +175,10 @@ automatically-unhide-macos-hidden-apps = false
     alt-shift-y = 'move-node-to-workspace Y'
     alt-shift-z = 'move-node-to-workspace Z'
 
-    # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
-    alt-tab = 'workspace-back-and-forth'
-    # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
     alt-esc = 'close --quit-if-last-window'
-    alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+    alt-tab = 'workspace-back-and-forth'
+    alt-v = 'layout floating tiling' # Toggle between floating and tiling layout
+    alt-m = 'move-workspace-to-monitor --wrap-around next'
     alt-f = 'fullscreen'
     # See: https://nikitabobko.github.io/AeroSpace/commands#mode
     alt-shift-semicolon = 'mode service'
