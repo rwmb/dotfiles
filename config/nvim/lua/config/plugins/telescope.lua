@@ -21,13 +21,22 @@ return {
                 "node_modules/",
               }
             },
+            live_grep = {
+              follow = true,
+              file_ignore_patterns = {
+                "node_modules/",
+                "package-lock.json",
+              }
+            },
           }
 
         require('telescope').setup(opts)
 
         vim.keymap.set("n", "<Leader>ff", require('telescope.builtin').find_files)
         vim.keymap.set("n", "<Leader>fg", require('telescope.builtin').live_grep)
-        vim.keymap.set("n", "<Leader>fa", require('telescope.builtin').find_files)
+        vim.keymap.set("n", "<Leader>fa", function()
+          require('telescope.builtin').find_files {}
+        end)
         vim.keymap.set("n", "<Leader>fc", function()
           require('telescope.builtin').find_files {
             cwd = "~/.config"
