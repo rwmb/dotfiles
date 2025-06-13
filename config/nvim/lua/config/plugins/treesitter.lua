@@ -20,6 +20,7 @@ return {
           "markdown",
           "markdown_inline",
           "c",
+          "cpp",
         },
         auto_install = false,
 

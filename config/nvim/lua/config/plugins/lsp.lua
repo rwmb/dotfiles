@@ -32,7 +32,7 @@ return {
       -- Specify snippet engine
       opts.snippet = {
         expand = function(args)
-          require'luasnip'.lsp_expand(args.body)
+          require('luasnip').lsp_expand(args.body)
         end
       }
 
@@ -124,7 +124,22 @@ return {
       lspconfig.ts_ls.setup({capabilities = capabilities})
       lspconfig.angularls.setup({capabilities = capabilities})
       lspconfig.emmet_language_server.setup({capabilities = capabilities})
+      lspconfig.clangd.setup {
+        capabilities = capabilities,  -- enable nvim-cmp completion
+        on_attach = function(client, bufnr)
+          -- Auto-format on save, if clangd supports it
+          if client.supports_method("textDocument/formatting") then
+            vim.api.nvim_create_autocmd("BufWritePre", {
+              buffer = bufnr,
+              callback = function()
+                vim.lsp.buf.format({ bufnr = bufnr, async = false })
+              end,
+            })
+          end
+        end,
+      }
       lspconfig.cssls.setup({
+        capabilities = capabilities,
         cmd = { "vscode-css-language-server", "--stdio" },
         settings = {
           scss = {
