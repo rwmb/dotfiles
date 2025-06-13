@@ -19,6 +19,7 @@ else
   install_all=false
 fi
 
+# backup files in order to link them
 backup_and_link() {
   local src="$1"
   local dst="$2"
