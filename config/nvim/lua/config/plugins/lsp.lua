@@ -123,14 +123,14 @@ return {
         capabilities = capabilities,  -- enable nvim-cmp completion
         on_attach = function(client, bufnr)
           -- Auto-format on save, if clangd supports it
-          -- if client.supports_method("textDocument/formatting") then
-          --   vim.api.nvim_create_autocmd("BufWritePre", {
-          --     buffer = bufnr,
-          --     callback = function()
-          --       vim.lsp.buf.format({ bufnr = bufnr, async = false })
-          --     end,
-          --   })
-          -- end
+          if client.supports_method("textDocument/formatting") then
+            vim.api.nvim_create_autocmd("BufWritePre", {
+              buffer = bufnr,
+              callback = function()
+                vim.lsp.buf.format({ bufnr = bufnr, async = false })
+              end,
+            })
+          end
         end,
       }
       lspconfig.cssls.setup({
