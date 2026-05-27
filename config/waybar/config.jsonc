@@ -100,7 +100,7 @@
         // "on-click-middle": "volumecontrol.sh -o m",
         // "on-scroll-up": "volumecontrol.sh -o i",
         // "on-scroll-down": "volumecontrol.sh -o d",
-        "tooltip-format": "{icon} {desc} // {volume}%",
+        "tooltip-format": "{icon} {desc}",
         "scroll-step": 5,
     },
 
@@ -112,7 +112,7 @@
         // "on-click-middle": "volumecontrol.sh -i m",
         // "on-scroll-up": "volumecontrol.sh -i i",
         // "on-scroll-down": "volumecontrol.sh -i d",
-        "tooltip-format": "{format_source} {source_desc} // {source_volume}%",
+        "tooltip-format": "{format_source} {source_desc}",
         "scroll-step": 5
     },
 
