@@ -7,5 +7,6 @@ export SYSTEMD_EDITOR=nvim
 export EDITOR=nvim
 export VISUAL=nvim
 
-[[ -z $WAYLAND_DISPLAY && $(tty) = /dev/tty1 ]] && exec start-hyprland
+# [[ -z $WAYLAND_DISPLAY && $(tty) = /dev/tty1 ]] && exec start-hyprland --config ~/.config/hypr/hyprland.lua
+[[ -z $WAYLAND_DISPLAY && $(tty) = /dev/tty1 ]] && exec start-hyprland --config ~/.config/hypr/hyprland.conf
 
