@@ -15,22 +15,26 @@
 
 -- See https://wiki.hypr.land/Configuring/Basics/Monitors/
 hl.monitor({
-    output   = "",
-    mode     = "preferred",
-    position = "auto",
-    scale    = "auto",
+  output = "eDP-1",
+  mode = "1920x1080@144",
+  position = "0x0",
+  scale = 1,
 })
-
 
 ---------------------
 ---- MY PROGRAMS ----
 ---------------------
-
--- Set programs that you use
 local terminal    = "kitty"
-local fileManager = "dolphin"
-local menu        = "hyprlauncher"
-
+local fileManager = "thunar"
+local menu        = "killall wofi; wofi --show run"
+local rickBrowser =  "brave --hide-crash-restore-bubble --profile-directory=\"Profile 1\""
+local behemoxBrowser =  "brave --hide-crash-restore-bubble --profile-directory=\"Profile 2\""
+local anonBrowser =  "brave --profile-directory=\"Profile 1\" --incognito"
+local print = "DEST=$(xdg-user-dir PICTURES)/prints/; echo \"${DEST%/*}\"; mkdir -p \"${DEST%/*}\"; grim -g \"$(slurp)\" - | tee \"${DEST%}$(date +'%y-%m-%d-%H-%M-%S').png\" | wl-copy;"
+local editPrint = "wl-paste | swappy -f -"
+local waybar = "waybar"
+local gammastep = "gammastep"
+local emojiMenu = "~/.config/wofi/emojis/wofi-emoji"
 
 -------------------
 ---- AUTOSTART ----
@@ -38,14 +42,15 @@ local menu        = "hyprlauncher"
 
 -- See https://wiki.hypr.land/Configuring/Basics/Autostart/
 
--- Autostart necessary processes (like notifications daemons, status bars, etc.)
--- Or execute your favorite apps at launch like this:
---
--- hl.on("hyprland.start", function () 
---   hl.exec_cmd(terminal)
---   hl.exec_cmd("nm-applet")
---   hl.exec_cmd("waybar & hyprpaper & firefox")
--- end)
+hl.on("hyprland.start", function () 
+  hl.exec_cmd(waybar)
+  hl.exec_cmd(gammastep)
+  hl.exec_cmd(hyprpaper)
+
+  hl.exec_cmd("[workspace 1 silent] $terminal")
+  hl.exec_cmd("[workspace 2 silent] $rickBrowser")
+  hl.exec_cmd("sleep 1; hyprctl dispatch workspace 3; $behemoxBrowser; sleep 2; hyprctl dispatch workspace 1;")
+end)
 
 
 -------------------------------
@@ -57,6 +62,14 @@ local menu        = "hyprlauncher"
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
 
+hl.env("XCURSOR_SIZE", "12")
+hl.env("HYPRCURSOR_SIZE", "12")
+hl.env("HYPRLAND_NO_SD_NOTIFY", "1")
+hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
+hl.env("XDG_SESSION_DESKTOP", "Hyprland")
+hl.env("XDG_SESSION_TYPE", "wayland")
+hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
+hl.env("GBM_BACKEND", "nvidia-drm")
 
 -----------------------
 ----- PERMISSIONS -----
@@ -84,42 +97,42 @@ hl.env("HYPRCURSOR_SIZE", "24")
 -- Refer to https://wiki.hypr.land/Configuring/Basics/Variables/
 hl.config({
     general = {
-        gaps_in  = 5,
-        gaps_out = 20,
+        gaps_in  = 0,
+        gaps_out = 0,
 
         border_size = 2,
 
         col = {
-            active_border   = { colors = {"rgba(33ccffee)", "rgba(00ff99ee)"}, angle = 45 },
-            inactive_border = "rgba(595959aa)",
+            active_border = { colors = {"rgba(ff353535)"} },
+            inactive_border = "rgba(ff222222)",
         },
 
         -- Set to true to enable resizing windows by clicking and dragging on borders and gaps
         resize_on_border = false,
 
         -- Please see https://wiki.hypr.land/Configuring/Advanced-and-Cool/Tearing/ before you turn this on
-        allow_tearing = false,
+        allow_tearing = true,
 
-        layout = "dwindle",
+        layout = "master",
     },
 
     decoration = {
-        rounding       = 10,
-        rounding_power = 2,
+        rounding       = 0,
+        rounding_power = 0,
 
         -- Change transparency of focused and unfocused windows
         active_opacity   = 1.0,
         inactive_opacity = 1.0,
 
         shadow = {
-            enabled      = true,
+            enabled      = false,
             range        = 4,
             render_power = 3,
             color        = 0xee1a1a1a,
         },
 
         blur = {
-            enabled   = true,
+            enabled   = false,
             size      = 3,
             passes    = 1,
             vibrancy  = 0.1696,
@@ -127,7 +140,7 @@ hl.config({
     },
 
     animations = {
-        enabled = true,
+        enabled = false,
     },
 })
 
@@ -187,7 +200,7 @@ hl.config({
 -- See https://wiki.hypr.land/Configuring/Layouts/Master-Layout/ for more
 hl.config({
     master = {
-        new_status = "master",
+        new_status = "slave",
     },
 })
 
@@ -204,8 +217,8 @@ hl.config({
 
 hl.config({
     misc = {
-        force_default_wallpaper = -1,    -- Set to 0 or 1 to disable the anime mascot wallpapers
-        disable_hyprland_logo   = false, -- If true disables the random hyprland logo / anime girl background. :(
+        force_default_wallpaper = 1,    -- Set to 0 or 1 to disable the anime mascot wallpapers
+        disable_hyprland_logo   = true, -- If true disables the random hyprland logo / anime girl background. :(
     },
 })
 
@@ -221,10 +234,12 @@ hl.config({
         kb_model   = "",
         kb_options = "",
         kb_rules   = "",
+        numlock_by_default = true
 
         follow_mouse = 1,
 
         sensitivity = 0, -- -1.0 - 1.0, 0 means no modification.
+        force_no_accel = true
 
         touchpad = {
             natural_scroll = false,
@@ -253,29 +268,45 @@ hl.device({
 local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 
 -- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
-hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal))
-local closeWindowBind = hl.bind(mainMod .. " + C", hl.dsp.window.close())
+local closeWindowBind = hl.bind(mainMod .. " + escape", hl.dsp.window.close())
 -- closeWindowBind:set_enabled(false)
-hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
+
+hl.bind(mainMod .. " + SHIFT + P", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
-hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
-hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
+hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ action = "toggle" }))
+hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(menu))
+hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd("qalculate-gtk"))
+hl.bind("PRINT", hl.dsp.exec_cmd(print))
+hl.bind(mainMod .. " + PRINT", hl.dsp.exec_cmd(editPrint))
+hl.bind(mainMod .. " + SHIFT + N", hl.dsp.exec_cmd(anonBrowser))
+hl.bind(mainMod .. " + PERIOD", hl.dsp.exec_cmd(emojiMenu))
 
 -- Move focus with mainMod + arrow keys
-hl.bind(mainMod .. " + left",  hl.dsp.focus({ direction = "left" }))
-hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }))
-hl.bind(mainMod .. " + up",    hl.dsp.focus({ direction = "up" }))
-hl.bind(mainMod .. " + down",  hl.dsp.focus({ direction = "down" }))
+hl.bind(mainMod .. " + H",  hl.dsp.focus({ direction = "left" }))
+hl.bind(mainMod .. " + L", hl.dsp.focus({ direction = "right" }))
+hl.bind(mainMod .. " + K",    hl.dsp.focus({ direction = "up" }))
+hl.bind(mainMod .. " + J",  hl.dsp.focus({ direction = "down" }))
 
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
-for i = 1, 10 do
-    local key = i % 10 -- 10 maps to key 0
-    hl.bind(mainMod .. " + " .. key,             hl.dsp.focus({ workspace = i}))
-    hl.bind(mainMod .. " + SHIFT + " .. key,     hl.dsp.window.move({ workspace = i }))
+for i = 1, 9 do
+    local key = i
+    hl.bind(mainMod .. " + " .. key,             hl.dsp.focus({ workspace = i + 4}))
+    hl.bind(mainMod .. " + SHIFT + " .. key,     hl.dsp.window.move({ workspace = i + 4 }))
 end
+
+hl.bind(mainMod .. " + C",             hl.dsp.focus({ workspace = 1}))
+hl.bind(mainMod .. " + R",             hl.dsp.focus({ workspace = 2}))
+hl.bind(mainMod .. " + B",             hl.dsp.focus({ workspace = 3}))
+hl.bind(mainMod .. " + D",             hl.dsp.focus({ workspace = 4}))
+hl.bind(mainMod .. " + G",             hl.dsp.focus({ workspace = 5}))
+hl.bind(mainMod .. " + SHIFT + C",     hl.dsp.window.move({ workspace = 1 }))
+hl.bind(mainMod .. " + SHIFT + R",     hl.dsp.window.move({ workspace = 2 }))
+hl.bind(mainMod .. " + SHIFT + B",     hl.dsp.window.move({ workspace = 3 }))
+hl.bind(mainMod .. " + SHIFT + D",     hl.dsp.window.move({ workspace = 4 }))
+hl.bind(mainMod .. " + SHIFT + G",     hl.dsp.window.move({ workspace = 5 }))
 
 -- Example special workspace (scratchpad)
 hl.bind(mainMod .. " + S",         hl.dsp.workspace.toggle_special("magic"))
@@ -298,11 +329,10 @@ hl.bind("XF86MonBrightnessUp",  hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+")
 hl.bind("XF86MonBrightnessDown",hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%-"),                  { locked = true, repeating = true })
 
 -- Requires playerctl
-hl.bind("XF86AudioNext",  hl.dsp.exec_cmd("playerctl next"),       { locked = true })
-hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
-hl.bind("XF86AudioPlay",  hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
-hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),   { locked = true })
-
+-- hl.bind("XF86AudioNext",  hl.dsp.exec_cmd("playerctl next"),       { locked = true })
+-- hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
+-- hl.bind("XF86AudioPlay",  hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
+-- hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),   { locked = true })
 
 --------------------------------
 ---- WINDOWS AND WORKSPACES ----
