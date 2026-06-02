@@ -1,13 +1,9 @@
 -- Refer to the wiki for more information.
 -- https://wiki.hypr.land/Configuring/Start/
 
--- Please note not all available settings / options are set here.
--- For a full list, see the wiki
-
 -- You can (and should!!) split this configuration into multiple files
 -- Create your files separately and then require them like this:
 -- require("myColors")
-
 
 ------------------
 ---- MONITORS ----
@@ -24,17 +20,19 @@ hl.monitor({
 ---------------------
 ---- MY PROGRAMS ----
 ---------------------
-local terminal    = "kitty"
+local terminal = "kitty"
 local fileManager = "thunar"
-local menu        = "killall wofi; wofi --show run"
+local waybar = "waybar"
+local gammastep = "gammastep"
+local menu = "killall wofi; wofi --show drun"
+local emojiMenu = "~/.config/wofi/emojis/wofi-emoji"
+
 local rickBrowser =  "brave --hide-crash-restore-bubble --profile-directory=\"Profile 1\""
 local behemoxBrowser =  "brave --hide-crash-restore-bubble --profile-directory=\"Profile 2\""
 local anonBrowser =  "brave --profile-directory=\"Profile 1\" --incognito"
+
 local print = "DEST=$(xdg-user-dir PICTURES)/prints/; echo \"${DEST%/*}\"; mkdir -p \"${DEST%/*}\"; grim -g \"$(slurp)\" - | tee \"${DEST%}$(date +'%y-%m-%d-%H-%M-%S').png\" | wl-copy;"
 local editPrint = "wl-paste | swappy -f -"
-local waybar = "waybar"
-local gammastep = "gammastep"
-local emojiMenu = "~/.config/wofi/emojis/wofi-emoji"
 
 -------------------
 ---- AUTOSTART ----
@@ -45,10 +43,11 @@ local emojiMenu = "~/.config/wofi/emojis/wofi-emoji"
 hl.on("hyprland.start", function () 
   hl.exec_cmd(waybar)
   hl.exec_cmd(gammastep)
+  hl.exec_cmd("hyprpaper")
 
   hl.exec_cmd("[workspace 1 silent] " .. terminal)
   hl.exec_cmd("[workspace 2 silent] " .. rickBrowser)
-  hl.exec_cmd("sleep 1; hyprctl dispatch 'hl.dsp.focus({ workspace = \"3\" })'; " .. behemoxBrowser .. "; sleep 1; hyprctl dispatch 'hl.dsp.focus({ workspace = \"1\" })';")
+  hl.exec_cmd("sleep 3; hyprctl dispatch 'hl.dsp.focus({ workspace = \"3\" })'; " .. behemoxBrowser .. "; sleep 1; hyprctl dispatch 'hl.dsp.focus({ workspace = \"1\" })';")
 end)
 
 
@@ -61,14 +60,20 @@ end)
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
 
-hl.env("XCURSOR_SIZE", "12")
-hl.env("HYPRCURSOR_SIZE", "12")
 hl.env("HYPRLAND_NO_SD_NOTIFY", "1")
+hl.env("GBM_BACKEND", "nvidia-drm")
 hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
 hl.env("XDG_SESSION_DESKTOP", "Hyprland")
 hl.env("XDG_SESSION_TYPE", "wayland")
 hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
-hl.env("GBM_BACKEND", "nvidia-drm")
+
+-- custom
+hl.env("WLR_DRM_DEVICES", "/dev/dri/card1:/dev/dri/card0")
+hl.env("WLR_NO_HARDWARE_CURSORS", "1")
+hl.env("__VK_LAYER_NV_OPTIMUS", "NVIDIA_only")
+hl.env("__NV_PRIME_RENDER_OFFLOAD", "1")
+hl.env("WLR_DRM_NO_ATOMIC", "1")   
+hl.env("GDK_SCALE", "2")
 
 -----------------------
 ----- PERMISSIONS -----
@@ -88,7 +93,6 @@ hl.env("GBM_BACKEND", "nvidia-drm")
 -- hl.permission("/usr/(lib|libexec|lib64)/xdg-desktop-portal-hyprland", "screencopy", "allow")
 -- hl.permission("/usr/(bin|local/bin)/hyprpm", "plugin", "allow")
 
-
 -----------------------
 ---- LOOK AND FEEL ----
 -----------------------
@@ -96,14 +100,14 @@ hl.env("GBM_BACKEND", "nvidia-drm")
 -- Refer to https://wiki.hypr.land/Configuring/Basics/Variables/
 hl.config({
     general = {
-        gaps_in  = 0,
-        gaps_out = 0,
+        gaps_in  = 5,
+        gaps_out = 5,
 
         border_size = 2,
 
         col = {
-            active_border = { colors = {"rgba(35353535)"} },
-            inactive_border = "rgba(22222222)",
+            active_border = { colors = {"rgba(353535FF)"} },
+            inactive_border = "rgba(222222FF)",
         },
 
         -- Set to true to enable resizing windows by clicking and dragging on borders and gaps
@@ -116,22 +120,22 @@ hl.config({
     },
 
     decoration = {
-        rounding       = 0,
-        rounding_power = 0,
+        rounding       = 10,
+        rounding_power = 2,
 
         -- Change transparency of focused and unfocused windows
         active_opacity   = 1.0,
         inactive_opacity = 1.0,
 
         shadow = {
-            enabled      = false,
+            enabled      = true,
             range        = 4,
             render_power = 3,
             color        = 0xee1a1a1a,
         },
 
         blur = {
-            enabled   = false,
+            enabled   = true,
             size      = 3,
             passes    = 1,
             vibrancy  = 0.1696,
@@ -139,7 +143,7 @@ hl.config({
     },
 
     animations = {
-        enabled = false,
+        enabled = true,
     },
 })
 
@@ -156,8 +160,8 @@ hl.curve("easy",           { type = "spring", mass = 1, stiffness = 71.2633, dam
 hl.animation({ leaf = "global",        enabled = true,  speed = 10,   bezier = "default" })
 hl.animation({ leaf = "border",        enabled = true,  speed = 5.39, bezier = "easeOutQuint" })
 hl.animation({ leaf = "windows",       enabled = true,  speed = 4.79, spring = "easy" })
-hl.animation({ leaf = "windowsIn",     enabled = true,  speed = 4.1,  spring = "easy",         style = "popin 87%" })
-hl.animation({ leaf = "windowsOut",    enabled = true,  speed = 1.49, bezier = "linear",       style = "popin 87%" })
+hl.animation({ leaf = "windowsIn",     enabled = true,  speed = 4.1,  spring = "easy",         style = "popin" })
+hl.animation({ leaf = "windowsOut",    enabled = true,  speed = 1.49, bezier = "linear",       style = "popin" })
 hl.animation({ leaf = "fadeIn",        enabled = true,  speed = 1.73, bezier = "almostLinear" })
 hl.animation({ leaf = "fadeOut",       enabled = true,  speed = 1.46, bezier = "almostLinear" })
 hl.animation({ leaf = "fade",          enabled = true,  speed = 3.03, bezier = "quick" })
@@ -166,28 +170,10 @@ hl.animation({ leaf = "layersIn",      enabled = true,  speed = 4,    bezier = "
 hl.animation({ leaf = "layersOut",     enabled = true,  speed = 1.5,  bezier = "linear",       style = "fade" })
 hl.animation({ leaf = "fadeLayersIn",  enabled = true,  speed = 1.79, bezier = "almostLinear" })
 hl.animation({ leaf = "fadeLayersOut", enabled = true,  speed = 1.39, bezier = "almostLinear" })
-hl.animation({ leaf = "workspaces",    enabled = true,  speed = 1.94, bezier = "almostLinear", style = "fade" })
-hl.animation({ leaf = "workspacesIn",  enabled = true,  speed = 1.21, bezier = "almostLinear", style = "fade" })
-hl.animation({ leaf = "workspacesOut", enabled = true,  speed = 1.94, bezier = "almostLinear", style = "fade" })
+hl.animation({ leaf = "workspaces",    enabled = false,  speed = 1.94, bezier = "almostLinear", style = "fade" })
+hl.animation({ leaf = "workspacesIn",  enabled = false,  speed = 1.21, bezier = "almostLinear", style = "fade" })
+hl.animation({ leaf = "workspacesOut", enabled = false,  speed = 1.94, bezier = "almostLinear", style = "fade" })
 hl.animation({ leaf = "zoomFactor",    enabled = true,  speed = 7,    bezier = "quick" })
-
--- Ref https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
--- "Smart gaps" / "No gaps when only"
--- uncomment all if you wish to use that.
--- hl.workspace_rule({ workspace = "w[tv1]", gaps_out = 0, gaps_in = 0 })
--- hl.workspace_rule({ workspace = "f[1]",   gaps_out = 0, gaps_in = 0 })
--- hl.window_rule({
---     name  = "no-gaps-wtv1",
---     match = { float = false, workspace = "w[tv1]" },
---     border_size = 0,
---     rounding    = 0,
--- })
--- hl.window_rule({
---     name  = "no-gaps-f1",
---     match = { float = false, workspace = "f[1]" },
---     border_size = 0,
---     rounding    = 0,
--- })
 
 -- See https://wiki.hypr.land/Configuring/Layouts/Dwindle-Layout/ for more
 hl.config({
@@ -236,6 +222,7 @@ hl.config({
         numlock_by_default = true,
 
         follow_mouse = 1,
+        mouse_refocus = false,
 
         sensitivity = 0, -- -1.0 - 1.0, 0 means no modification.
         force_no_accel = true,
@@ -259,6 +246,8 @@ hl.device({
     sensitivity = -0.5,
 })
 
+-- possible fix for xwayland
+-- hl.config({ xwayland = { force_zero_scaling = true } }) 
 
 ---------------------
 ---- KEYBINDINGS ----
@@ -276,6 +265,7 @@ hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ action = "toggle" }))
 hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(menu))
+hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd("hyprland-run"))
 hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd("qalculate-gtk"))
 hl.bind("PRINT", hl.dsp.exec_cmd(print))
 hl.bind(mainMod .. " + PRINT", hl.dsp.exec_cmd(editPrint))
@@ -300,12 +290,12 @@ hl.bind(mainMod .. " + C",             hl.dsp.focus({ workspace = 1}))
 hl.bind(mainMod .. " + R",             hl.dsp.focus({ workspace = 2}))
 hl.bind(mainMod .. " + B",             hl.dsp.focus({ workspace = 3}))
 hl.bind(mainMod .. " + D",             hl.dsp.focus({ workspace = 4}))
-hl.bind(mainMod .. " + G",             hl.dsp.focus({ workspace = 5}))
+hl.bind(mainMod .. " + G",             hl.dsp.focus({ workspace = 10}))
 hl.bind(mainMod .. " + SHIFT + C",     hl.dsp.window.move({ workspace = 1 }))
 hl.bind(mainMod .. " + SHIFT + R",     hl.dsp.window.move({ workspace = 2 }))
 hl.bind(mainMod .. " + SHIFT + B",     hl.dsp.window.move({ workspace = 3 }))
 hl.bind(mainMod .. " + SHIFT + D",     hl.dsp.window.move({ workspace = 4 }))
-hl.bind(mainMod .. " + SHIFT + G",     hl.dsp.window.move({ workspace = 5 }))
+hl.bind(mainMod .. " + SHIFT + G",     hl.dsp.window.move({ workspace = 10 }))
 
 -- Example special workspace (scratchpad)
 hl.bind(mainMod .. " + S",         hl.dsp.workspace.toggle_special("magic"))
@@ -336,6 +326,34 @@ hl.bind("XF86MonBrightnessDown",hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%-")
 --------------------------------
 ---- WINDOWS AND WORKSPACES ----
 --------------------------------
+
+-- Ref https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
+hl.workspace_rule({
+  workspace = "10",
+  gaps_out = 0,
+  gaps_in = 0,
+  no_border = true,
+  no_shadow = true,
+  no_rounding = true,
+  decorate = false,
+})
+
+hl.workspace_rule({
+  workspace = "1",
+  gaps_out = 0,
+  gaps_in = 0,
+  no_border = true,
+  no_shadow = true,
+  no_rounding = true,
+  decorate = false,
+})
+
+hl.workspace_rule({ workspace = "w[tv1]", gaps_out = 0, gaps_in = 0 })
+hl.workspace_rule({ workspace = "f[1]", gaps_out = 0, gaps_in = 0 })
+hl.window_rule({ match = { float = false, workspace = "w[tv1]" }, border_size = 0 })
+hl.window_rule({ match = { float = false, workspace = "w[tv1]" }, rounding = 0 })
+hl.window_rule({ match = { float = false, workspace = "f[1]" }, border_size = 0 })
+hl.window_rule({ match = { float = false, workspace = "f[1]" }, rounding = 0 })
 
 -- See https://wiki.hypr.land/Configuring/Basics/Window-Rules/
 -- and https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
@@ -372,7 +390,7 @@ hl.window_rule({
 --     match = { namespace = "^my-overlay$" },
 --     no_anim = true,
 -- })
--- overlayLayerRule:set_enabled(false)
+-- overlayLayerRule:set_enabled(true)
 
 -- Hyprland-run windowrule
 hl.window_rule({
@@ -381,4 +399,61 @@ hl.window_rule({
 
     move  = "20 monitor_h-120",
     float = true,
+})
+
+hl.window_rule({
+  name = "floating",
+  match = {
+    float = true,
+    -- class = "(?!.*(UnrealEditor|Unreal)).*",
+  },
+  border_size = 3
+})
+
+hl.window_rule({
+  name = "steam",
+  animation = "gnomed",
+  match = {
+    class = "^steam$",
+  },
+
+  decorate = false,
+  no_anim = true,
+  -- no_blur = true,
+  -- no_dim = true,
+  -- no_shadow = true,
+
+  float = true,
+  center = true,
+  workspace = "10 silent",
+})
+
+hl.window_rule({
+  name = "unreal",
+  match = {
+    class = "^(UnrealEditor|Unreal)$",
+  },
+
+  -- suppress_event = "activate",
+  decorate = false,
+  no_anim = true,
+  no_blur = true,
+  no_dim = true,
+  no_shadow = true,
+
+  workspace = "5 silent",
+})
+
+hl.window_rule({
+  name = "pavucontrol",
+  match = {
+    class = "^org.pulseaudio.pavucontrol$",
+  },
+
+  animation = "slide",
+  max_size = { 800, 600 },
+  move = {"(monitor_w - window_w)", "35"},
+  float = true,
+  pin = true,
+  persistent_size = true,
 })

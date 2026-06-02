@@ -116,9 +116,15 @@ return {
       local lspconfig = require('lspconfig')
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-      lspconfig.ts_ls.setup({capabilities = capabilities})
-      lspconfig.angularls.setup({capabilities = capabilities})
-      lspconfig.emmet_language_server.setup({capabilities = capabilities})
+      lspconfig.ts_ls.setup({
+        capabilities = capabilities
+      })
+      -- lspconfig.angularls.setup({
+      --   capabilities = capabilities
+      -- })
+      lspconfig.emmet_language_server.setup({
+        capabilities = capabilities
+      })
       lspconfig.clangd.setup {
         capabilities = capabilities,  -- enable nvim-cmp completion
         -- on_attach = function(client, bufnr)
