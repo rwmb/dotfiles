@@ -59,13 +59,13 @@
 
  /* Selected Entry */
  #entry:selected {
-   background-color: @bg;
    outline: 1px solid @blue;
  }
 
  #entry:selected #text {
     color: @blue;
  }
+
  image {
    margin-left: 10px;
  }

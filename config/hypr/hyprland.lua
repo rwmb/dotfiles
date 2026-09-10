@@ -27,6 +27,8 @@ local gammastep = "gammastep"
 local menu = "killall wofi; wofi --show drun"
 local emojiMenu = "~/.config/wofi/emojis/wofi-emoji"
 
+local discord = "equibop"
+
 local rickBrowser =  "brave --hide-crash-restore-bubble --profile-directory=\"Profile 1\""
 local behemoxBrowser =  "brave --hide-crash-restore-bubble --profile-directory=\"Profile 2\""
 local anonBrowser =  "brave --profile-directory=\"Profile 1\" --incognito"
@@ -44,6 +46,8 @@ hl.on("hyprland.start", function ()
   hl.exec_cmd(waybar)
   hl.exec_cmd(gammastep)
   hl.exec_cmd("hyprpaper")
+
+  hl.exec_cmd(discord)
 
   hl.exec_cmd("[workspace 1 silent] " .. terminal)
   hl.exec_cmd("[workspace 2 silent] " .. rickBrowser)
@@ -73,7 +77,7 @@ hl.env("WLR_NO_HARDWARE_CURSORS", "1")
 hl.env("__VK_LAYER_NV_OPTIMUS", "NVIDIA_only")
 hl.env("__NV_PRIME_RENDER_OFFLOAD", "1")
 hl.env("WLR_DRM_NO_ATOMIC", "1")   
-hl.env("GDK_SCALE", "2")
+hl.env("GDK_SCALE", "1")
 
 -----------------------
 ----- PERMISSIONS -----
@@ -269,7 +273,6 @@ hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd("hyprland-run"))
 hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd("qalculate-gtk"))
 hl.bind("PRINT", hl.dsp.exec_cmd(print))
 hl.bind(mainMod .. " + PRINT", hl.dsp.exec_cmd(editPrint))
-hl.bind(mainMod .. " + SHIFT + N", hl.dsp.exec_cmd(anonBrowser))
 hl.bind(mainMod .. " + PERIOD", hl.dsp.exec_cmd(emojiMenu))
 
 -- Move focus with mainMod + arrow keys
@@ -429,6 +432,22 @@ hl.window_rule({
 })
 
 hl.window_rule({
+  name = "discord",
+  animation = "gnomed",
+  match = {
+    class = "^equibop$",
+  },
+
+  decorate = false,
+  no_anim = true,
+  -- no_blur = true,
+  -- no_dim = true,
+  -- no_shadow = true,
+
+  workspace = "4 silent",
+})
+
+hl.window_rule({
   name = "unreal",
   match = {
     class = "^(UnrealEditor|Unreal)$",
@@ -457,3 +476,13 @@ hl.window_rule({
   pin = true,
   persistent_size = true,
 })
+
+hl.window_rule({
+  name = "audacity",
+  match = {
+    class = "Audacity",
+  },
+
+  -- persistent_size = true,
+})
+

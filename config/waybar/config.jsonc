@@ -19,6 +19,7 @@
     "group/utils": {
         "orientation": "horizontal",
         "modules": [
+          "battery",
           "pulseaudio",
           "pulseaudio#microphone",
           "network"
@@ -27,6 +28,7 @@
 
     "hyprland/workspaces": {
         "format": "{icon}",
+        "on-scroll-up": "hyprctl dispatch workspace e+1",
         "on-click": "activate",
         "format-icons": {
             "default": "",
@@ -42,13 +44,14 @@
             "1": [],
             "2": [],
             "3": [],
+            "4": [],
             "10": [],
         }
     },
 
     "custom/lock": {
         "tooltip": false,
-        // "on-click": "sh -c '(sleep 0.5s; swaylock --grace 0)' & disown",
+        "on-click": "hyprlock",
         "format": ""
     },
 
@@ -97,7 +100,7 @@
             "car": "",
             "default": ["", "", ""]
         },
-        "on-click": "pavucontrol -t 3",
+        "on-click": "pavucontrol -t 3 & sleep 3 && killall pavucontrol",
         // "on-click-middle": "volumecontrol.sh -o m",
         // "on-scroll-up": "volumecontrol.sh -o i",
         // "on-scroll-down": "volumecontrol.sh -o d",

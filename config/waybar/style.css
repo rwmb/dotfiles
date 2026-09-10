@@ -32,6 +32,7 @@
 #clock,
 #custom-lock,
 #custom-power,
+#battery,
 #utils {
     background-color: @bg;
     padding: 0 1.0em;
